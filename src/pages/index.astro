@@ -1,0 +1,183 @@
+---
+---
+
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <title>KlikBox — Web Development & AI Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a0f1e;
+      --orange: #f97316;
+      --orange-dim: rgba(249,115,22,0.12);
+      --muted: rgba(255,255,255,0.55);
+      --card: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.08);
+    }
+    body { background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 0.5px solid var(--card-border); position: sticky; top: 0; background: var(--navy); z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo img { height: 72px; }
+    .logo-text { font-size: 20px; font-weight: 600; color: #fff; }
+    .logo-text span { color: var(--orange); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .lang-switch { display: flex; gap: 6px; }
+    .lang-switch button { background: none; border: 0.5px solid var(--card-border); color: var(--muted); font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .lang-switch button.active { border-color: var(--orange); color: var(--orange); }
+
+    /* HERO */
+    .hero { text-align: center; padding: 80px 48px 60px; }
+    .badge { display: inline-block; background: var(--orange-dim); color: var(--orange); font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid rgba(249,115,22,0.3); margin-bottom: 24px; }
+    .hero h1 { font-size: 52px; font-weight: 600; line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px; }
+    .hero h1 span { color: var(--orange); }
+    .hero p { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; }
+    .btn-primary { background: var(--orange); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 0.5px solid var(--card-border); padding: 12px 28px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 600px; margin: 0 auto; padding: 0 48px 60px; }
+    .stat { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 20px; text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 600; color: var(--orange); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* PROJECTS */
+    .section { padding: 0 48px 60px; }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 24px; transition: border-color 0.2s; cursor: pointer; }
+    .card:hover { border-color: rgba(249,115,22,0.4); }
+    .card-tag { font-size: 11px; color: var(--orange); background: var(--orange-dim); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
+    .card h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .card-footer { margin-top: 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+
+    /* CONTACT */
+    .contact { margin: 0 48px 60px; background: var(--card); border: 0.5px solid var(--card-border); border-radius: 16px; padding: 48px; text-align: center; }
+    .contact h2 { font-size: 28px; font-weight: 500; margin-bottom: 12px; }
+    .contact p { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+
+    /* FOOTER */
+    footer { border-top: 0.5px solid var(--card-border); padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer span { color: var(--orange); font-size: 13px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 32px; }
+      .stats { padding: 0 20px 40px; }
+      .section { padding: 0 20px 40px; }
+      .contact { margin: 0 20px 40px; padding: 32px 20px; }
+      footer { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">
+    <img src="/klikboxdark500nobg.png" alt="KlikBox" id="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="#projects" data-gr="Projects" data-en="Projects">Projects</a>
+    <a href="#contact" data-gr="Επικοινωνία" data-en="Contact">Επικοινωνία</a>
+  </div>
+  <div class="lang-switch">
+    <button class="active" onclick="setLang('gr')">GR</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge" data-gr="Web Development & AI Solutions" data-en="Web Development & AI Solutions">Web Development & AI Solutions</div>
+  <h1 data-gr="Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν" data-en="Building<br><span>digital experiences</span><br>that stand out">Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν</h1>
+  <p data-gr="Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο." data-en="Websites, web apps and AI-powered applications for businesses that want to stand out online.">Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" data-gr="Δες τα Projects →" data-en="View Projects →">Δες τα Projects →</button>
+    <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-gr="Επικοινωνία" data-en="Get in Touch">Επικοινωνία</button>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">12+</div>
+    <div class="stat-label" data-gr="Projects" data-en="Projects">Projects</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label" data-gr="AI Εφαρμογές" data-en="AI Apps">AI Εφαρμογές</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label" data-gr="Ικανοποιημένοι πελάτες" data-en="Happy clients">Ικανοποιημένοι πελάτες</div>
+  </div>
+</div>
+
+<section class="section" id="projects">
+  <div class="section-label" data-gr="— Featured Projects" data-en="— Featured Projects">— Featured Projects</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-tag">WordPress</div>
+      <h3>Sunrise House</h3>
+      <p data-gr="Vacation rental site για την Πάργα με multilingual support & lightbox gallery." data-en="Vacation rental site for Parga with multilingual support & lightbox gallery.">Vacation rental site για την Πάργα με multilingual support & lightbox gallery.</p>
+      <div class="card-footer"><div class="dot"></div>sunrisehouse.gr</div>
+    </div>
+    <div class="card">
+      <div class="card-tag">AI / Claude</div>
+      <h3 data-gr="AI Εργαλείο" data-en="AI Tool">AI Εργαλείο</h3>
+      <p data-gr="Claude-powered εφαρμογή για αυτοματισμό εργασιών." data-en="Claude-powered application for task automation.">Claude-powered εφαρμογή για αυτοματισμό εργασιών.</p>
+      <div class="card-footer"><div class="dot"></div><span style="color:var(--orange)">Live</span></div>
+    </div>
+    <div class="card">
+      <div class="card-tag">Web App</div>
+      <h3>Dashboard</h3>
+      <p data-gr="Custom web application με real-time data για πελάτη." data-en="Custom web application with real-time data for a client.">Custom web application με real-time data για πελάτη.</p>
+      <div class="card-footer"><div class="dot"></div><span style="color:var(--orange)">Live</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 data-gr="Ας συνεργαστούμε" data-en="Let's work together">Ας συνεργαστούμε</h2>
+  <p data-gr="Έχεις ένα project στο μυαλό σου; Ας το κάνουμε πραγματικότητα." data-en="Have a project in mind? Let's make it happen.">Έχεις ένα project στο μυαλό σου; Ας το κάνουμε πραγματικότητα.</p>
+  <a href="mailto:info@klikbox.gr"><button class="btn-primary" data-gr="Στείλε μήνυμα →" data-en="Send a message →">Στείλε μήνυμα →</button></a>
+</section>
+
+<footer>
+  <p>© 2026 KlikBox</p>
+  <span>klikbox.gr</span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    const isGr = lang === 'gr';
+    document.querySelectorAll('[data-gr]').forEach(el => {
+      const text = isGr ? el.dataset.gr : el.dataset.en;
+      if (el.tagName === 'H1') { el.innerHTML = text; }
+      else if (el.tagName === 'BUTTON') { el.textContent = text; }
+      else { el.textContent = text; }
+    });
+    document.querySelectorAll('.lang-switch button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && isGr) || (i === 1 && !isGr));
+    });
+    document.documentElement.lang = isGr ? 'el' : 'en';
+  }
+</script>
+
+</body>
+</html>
