@@ -5,85 +5,138 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="generator" content={Astro.generator} />
   <title>KlikBox — Web Development & AI Solutions</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --navy: #0a0f1e;
+      --navy2: #0d1529;
       --orange: #f97316;
       --orange-dim: rgba(249,115,22,0.12);
       --muted: rgba(255,255,255,0.55);
-      --card: rgba(255,255,255,0.05);
+      --card: rgba(255,255,255,0.04);
       --card-border: rgba(255,255,255,0.08);
     }
-    body { background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* NAV */
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 0.5px solid var(--card-border); position: sticky; top: 0; background: var(--navy); z-index: 100; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 0.5px solid var(--card-border); position: fixed; top: 0; width: 100%; background: rgba(10,15,30,0.85); backdrop-filter: blur(12px); z-index: 100; }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .logo img { height: 72px; }
-    .logo-text { font-size: 20px; font-weight: 600; color: #fff; }
-    .logo-text span { color: var(--orange); }
     .nav-links { display: flex; gap: 32px; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
     .nav-links a:hover { color: #fff; }
     .lang-switch { display: flex; gap: 6px; }
-    .lang-switch button { background: none; border: 0.5px solid var(--card-border); color: var(--muted); font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-    .lang-switch button.active { border-color: var(--orange); color: var(--orange); }
+ 	.lang-switch button { background: none; border: 0.5px solid var(--card-border); padding: 5px 8px; border-radius: 6px; cursor: pointer; opacity: 0.5; transition: all 0.2s; display: flex; align-items: center; }
+	.lang-switch button.active { border-color: var(--orange); opacity: 1; }
+	.lang-switch button img { display: block; width: 24px; height: 18px; }
 
-    /* HERO */
-    .hero { text-align: center; padding: 80px 48px 60px; }
+    .hero-wrap { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(249,115,22,0.08) 0%, transparent 70%), radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 60%); will-change: transform; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; will-change: transform; }
+    .hero-content { position: relative; text-align: center; padding: 0 24px; }
     .badge { display: inline-block; background: var(--orange-dim); color: var(--orange); font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid rgba(249,115,22,0.3); margin-bottom: 24px; }
-    .hero h1 { font-size: 52px; font-weight: 600; line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px; }
+    .hero h1 { font-size: 64px; font-weight: 600; line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px; }
     .hero h1 span { color: var(--orange); }
-    .hero p { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero p { font-size: 17px; color: var(--muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.7; }
     .hero-btns { display: flex; gap: 12px; justify-content: center; }
-    .btn-primary { background: var(--orange); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
-    .btn-primary:hover { opacity: 0.85; }
-    .btn-ghost { background: transparent; color: var(--muted); border: 0.5px solid var(--card-border); padding: 12px 28px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+    .btn-primary { background: var(--orange); color: #fff; border: none; padding: 13px 30px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 0.5px solid var(--card-border); padding: 13px 30px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+    .scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--muted); font-size: 20px; animation: bounce 2s infinite; }
+	.fi { position: absolute; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px 16px; display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500; z-index: 3; white-space: nowrap; transition: border-color 0.3s, background 0.3s; }
+	.fi:hover { border-color: rgba(249,115,22,0.5); background: rgba(249,115,22,0.08); }
+	.fi-1 { top: 15%; left: 4%; animation: f1 6s ease-in-out infinite; }
+	.fi-2 { top: 10%; right: 5%; animation: f2 7.5s ease-in-out infinite; }
+	.fi-3 { top: 50%; left: 2%; transform: translateY(-50%); animation: f3 5.5s ease-in-out infinite; }
+	.fi-4 { top: 50%; right: 2%; transform: translateY(-50%); animation: f1 8s ease-in-out infinite reverse; }
+	.fi-5 { bottom: 18%; left: 5%; animation: f2 6.5s ease-in-out infinite; }
+	.fi-6 { bottom: 12%; right: 5%; animation: f3 7s ease-in-out infinite reverse; }
+	@keyframes f1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+	@keyframes f2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+	@keyframes f3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 600px; margin: 0 auto; padding: 0 48px 60px; }
-    .stat { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 20px; text-align: center; }
-    .stat-num { font-size: 28px; font-weight: 600; color: var(--orange); }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .stats-section { padding: 80px 48px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
+    .stat { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 28px 20px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
+    .stat-num { font-size: 36px; font-weight: 600; color: var(--orange); }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-    /* PROJECTS */
-    .section { padding: 0 48px 60px; }
-    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 24px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .card { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 24px; transition: border-color 0.2s; cursor: pointer; }
-    .card:hover { border-color: rgba(249,115,22,0.4); }
-    .card-tag { font-size: 11px; color: var(--orange); background: var(--orange-dim); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; }
-    .card h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
-    .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .card-footer { margin-top: 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .services-section { padding: 80px 48px; background: var(--navy2); }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 12px; }
+    .section-title { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; }
+    .section-title span { color: var(--orange); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .service-card { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 16px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { border-color: rgba(249,115,22,0.2); transform: translateY(-6px); }
+    .service-icon { font-size: 36px; margin-bottom: 16px; }
+    .service-card h3 { font-size: 18px; font-weight: 500; margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-    /* CONTACT */
-    .contact { margin: 0 48px 60px; background: var(--card); border: 0.5px solid var(--card-border); border-radius: 16px; padding: 48px; text-align: center; }
-    .contact h2 { font-size: 28px; font-weight: 500; margin-bottom: 12px; }
-    .contact p { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+    .projects-section { padding: 80px 48px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .project-card { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 16px; padding: 28px; transition: all 0.3s; cursor: pointer; }
+    .project-card:hover { border-color: rgba(249,115,22,0.4); transform: translateY(-6px); }
+    .project-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+    .card-tag { font-size: 11px; color: var(--orange); background: var(--orange-dim); padding: 4px 12px; border-radius: 20px; border: 0.5px solid rgba(249,115,22,0.2); }
+    .card-arrow { color: var(--muted); font-size: 18px; transition: all 0.2s; }
+    .project-card:hover .card-arrow { color: var(--orange); transform: translate(3px,-3px); }
+    .project-card h3 { font-size: 18px; font-weight: 500; margin-bottom: 10px; }
+    .project-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+    .card-footer { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); padding-top: 16px; border-top: 0.5px solid var(--card-border); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .dot.live { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    /* FOOTER */
-    footer { border-top: 0.5px solid var(--card-border); padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .about-section { padding: 80px 48px; background: var(--navy2); }
+    .about-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-text .section-label { text-align: left; }
+    .about-text h2 { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; line-height: 1.2; }
+    .about-text h2 span { color: var(--orange); }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .tag { background: var(--orange-dim); color: var(--orange); font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid rgba(249,115,22,0.2); }
+    .about-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .about-box { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s; }
+    .about-box:hover { border-color: rgba(249,115,22,0.3); transform: scale(1.03); }
+    .about-box-num { font-size: 28px; font-weight: 600; color: var(--orange); }
+    .about-box-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .contact-section { padding: 80px 48px; }
+    .contact-inner { max-width: 700px; margin: 0 auto; background: var(--card); border: 0.5px solid var(--card-border); border-radius: 24px; padding: 60px; text-align: center; position: relative; overflow: hidden; }
+    .contact-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%); pointer-events: none; }
+    .contact-inner .section-label { margin-bottom: 16px; }
+    .contact-inner h2 { font-size: 36px; font-weight: 600; margin-bottom: 16px; }
+    .contact-inner h2 span { color: var(--orange); }
+    .contact-inner p { color: var(--muted); font-size: 16px; margin-bottom: 32px; line-height: 1.7; }
+
+    footer { border-top: 0.5px solid var(--card-border); padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; }
     footer p { font-size: 13px; color: var(--muted); }
     footer span { color: var(--orange); font-size: 13px; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
 
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .hero { padding: 48px 20px 40px; }
-      .hero h1 { font-size: 32px; }
-      .stats { padding: 0 20px 40px; }
-      .section { padding: 0 20px 40px; }
-      .contact { margin: 0 20px 40px; padding: 32px 20px; }
-      footer { padding: 16px 20px; }
+      .hero h1 { font-size: 36px; letter-spacing: -1px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stats-section, .services-section, .projects-section, .about-section, .contact-section { padding: 60px 20px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { padding: 40px 24px; }
+      footer { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
+	  .fi { display: none; }
     }
   </style>
 </head>
@@ -91,91 +144,301 @@
 
 <nav>
   <a class="logo" href="/">
-    <img src="/klikboxdark500nobg.png" alt="KlikBox" id="logo-img" />
+    <img src="/klikboxdark500nobg.png" alt="KlikBox" />
   </a>
   <div class="nav-links">
+    <a href="#services" data-gr="Υπηρεσίες" data-en="Services">Υπηρεσίες</a>
     <a href="#projects" data-gr="Projects" data-en="Projects">Projects</a>
+    <a href="#about" data-gr="Σχετικά" data-en="About">Σχετικά</a>
     <a href="#contact" data-gr="Επικοινωνία" data-en="Contact">Επικοινωνία</a>
   </div>
   <div class="lang-switch">
-    <button class="active" onclick="setLang('gr')">GR</button>
-    <button onclick="setLang('en')">EN</button>
+    <button class="active" onclick="setLang('gr')" title="Ελληνικά">
+    <img src="https://flagcdn.com/24x18/gr.png" alt="GR" />
+  </button>
+  <button onclick="setLang('en')" title="English">
+    <img src="https://flagcdn.com/24x18/gb.png" alt="EN" />
+  </button>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="badge" data-gr="Web Development & AI Solutions" data-en="Web Development & AI Solutions">Web Development & AI Solutions</div>
-  <h1 data-gr="Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν" data-en="Building<br><span>digital experiences</span><br>that stand out">Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν</h1>
-  <p data-gr="Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο." data-en="Websites, web apps and AI-powered applications for businesses that want to stand out online.">Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" data-gr="Δες τα Projects →" data-en="View Projects →">Δες τα Projects →</button>
-    <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-gr="Επικοινωνία" data-en="Get in Touch">Επικοινωνία</button>
+<!-- HERO -->
+<section class="hero-wrap">
+  <div class="hero-bg" id="parallax-bg"></div>
+  <div class="hero-grid" id="parallax-grid"></div>
+
+  <div class="fi fi-1">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 1.542c1.58 0 3.088.518 4.29 1.396L4.938 16.29A8.447 8.447 0 0 1 3.542 12c0-4.67 3.788-8.458 8.458-8.458zm0 16.916a8.414 8.414 0 0 1-4.29-1.396L19.062 7.71A8.447 8.447 0 0 1 20.458 12c0 4.67-3.788 8.458-8.458 8.458z" fill="#21759b"/></svg>
+    WordPress
+  </div>
+
+  <div class="fi fi-2">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#fff"/></svg>
+    GitHub
+  </div>
+
+  <div class="fi fi-3">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09c.233 0 .438.048.612.143.83.48 1.17 2.395.78 4.906-.088.56-.235 1.15-.42 1.748a22.524 22.524 0 0 0-2.088-.382 22.629 22.629 0 0 0-1.38-1.667c.462-.45.927-.863 1.388-1.226 1.144-.89 2.218-1.522 2.908-1.522zm-10.726.338c.69 0 1.763.63 2.907 1.52.462.363.927.775 1.388 1.225a22.629 22.629 0 0 0-1.38 1.667 22.524 22.524 0 0 0-2.088.382c-.185-.598-.33-1.187-.42-1.748-.39-2.51-.05-4.425.78-4.906a1.1 1.1 0 0 1 .613-.14zm5.35 2.92c.408.44.81.92 1.196 1.434a19.822 19.822 0 0 0-2.394 0c.385-.514.788-.993 1.197-1.433zm-5.774 4.17c.32-.084.647-.16.98-.228a19.67 19.67 0 0 0-.6 1.935c-.348-.583-.654-1.168-.38-1.706zm11.547 0c.274.538-.032 1.123-.38 1.706a19.67 19.67 0 0 0-.6-1.935c.333.068.66.144.98.228z" fill="#61dafb"/></svg>
+    React
+  </div>
+
+  <div class="fi fi-4">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" fill="#f0db4f"/></svg>
+    JavaScript
+  </div>
+
+  <div class="fi fi-5">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zM4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4zm0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" fill="#00758f"/></svg>
+    SQL
+  </div>
+
+  <div class="fi fi-6">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.532-.304 2.532s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.574M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.774-.062 1.807-.152 3.621-.477 3.621-.477s-.637.272-1.099.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.77-.892 3.77-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639" fill="#f89820"/></svg>
+    Java
+  </div>
+
+  <div class="hero-content">
+    <div class="badge">Web Development & AI Solutions</div>
+    <div class="hero">
+      <h1 id="hero-title">Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν</h1>
+      <p id="hero-sub">Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" id="btn-projects" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Δες τα Projects →</button>
+        <button class="btn-ghost" id="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Επικοινωνία</button>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+<section class="stats-section">
+  <div class="stats">
+    <div class="stat fade-in">
+      <div class="stat-num">12+</div>
+      <div class="stat-label" id="stat1">Projects Ολοκληρωμένα</div>
+    </div>
+    <div class="stat fade-in fade-in-delay-1">
+      <div class="stat-num">3</div>
+      <div class="stat-label" id="stat2">AI Εφαρμογές</div>
+    </div>
+    <div class="stat fade-in fade-in-delay-2">
+      <div class="stat-num">5+</div>
+      <div class="stat-label" id="stat3">Χρόνια Εμπειρίας</div>
+    </div>
+    <div class="stat fade-in fade-in-delay-3">
+      <div class="stat-num">100%</div>
+      <div class="stat-label" id="stat4">Ικανοποιημένοι Πελάτες</div>
+    </div>
   </div>
 </section>
 
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">12+</div>
-    <div class="stat-label" data-gr="Projects" data-en="Projects">Projects</div>
+<section class="services-section" id="services">
+  <div class="section-header fade-in">
+    <div class="section-label" id="services-label">— Τι Προσφέρουμε</div>
+    <h2 class="section-title" id="services-title">Υπηρεσίες που <span>φέρνουν αποτελέσματα</span></h2>
   </div>
-  <div class="stat">
-    <div class="stat-num">3</div>
-    <div class="stat-label" data-gr="AI Εφαρμογές" data-en="AI Apps">AI Εφαρμογές</div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-icon">🌐</div>
+      <h3 id="s1-title">Web Development</h3>
+      <p id="s1-desc">Κατασκευή επαγγελματικών websites με WordPress, custom HTML/CSS και modern frameworks.</p>
+    </div>
+    <div class="service-card fade-in fade-in-delay-1">
+      <div class="service-icon">🤖</div>
+      <h3 id="s2-title">AI Solutions</h3>
+      <p id="s2-desc">Claude-powered εφαρμογές και εργαλεία που αυτοματοποιούν διαδικασίες και εξοικονομούν χρόνο.</p>
+    </div>
+    <div class="service-card fade-in fade-in-delay-2">
+      <div class="service-icon">⚡</div>
+      <h3 id="s3-title">Web Apps</h3>
+      <p id="s3-desc">Custom web applications με real-time δυνατότητες, dashboards και σύγχρονα UI/UX.</p>
+    </div>
+    <div class="service-card fade-in fade-in-delay-3">
+      <div class="service-icon">🎨</div>
+      <h3 id="s4-title">UI/UX Design</h3>
+      <p id="s4-desc">Σχεδιασμός interfaces που εντυπωσιάζουν και μετατρέπουν επισκέπτες σε πελάτες.</p>
+    </div>
   </div>
-  <div class="stat">
-    <div class="stat-num">100%</div>
-    <div class="stat-label" data-gr="Ικανοποιημένοι πελάτες" data-en="Happy clients">Ικανοποιημένοι πελάτες</div>
-  </div>
-</div>
+</section>
 
-<section class="section" id="projects">
-  <div class="section-label" data-gr="— Featured Projects" data-en="— Featured Projects">— Featured Projects</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-tag">WordPress</div>
+<section class="projects-section" id="projects">
+  <div class="section-header fade-in">
+    <div class="section-label" id="projects-label">— Δουλειά μας</div>
+    <h2 class="section-title">Featured <span>Projects</span></h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div class="project-card-top">
+        <div class="card-tag">WordPress</div>
+        <div class="card-arrow">↗</div>
+      </div>
       <h3>Sunrise House</h3>
-      <p data-gr="Vacation rental site για την Πάργα με multilingual support & lightbox gallery." data-en="Vacation rental site for Parga with multilingual support & lightbox gallery.">Vacation rental site για την Πάργα με multilingual support & lightbox gallery.</p>
-      <div class="card-footer"><div class="dot"></div>sunrisehouse.gr</div>
+      <p id="p1-desc">Vacation rental site για την Πάργα με multilingual support (GR/EN/SR), parallax effects και lightbox gallery.</p>
+      <div class="card-footer"><div class="dot live"></div>sunrisehouse.gr</div>
     </div>
-    <div class="card">
-      <div class="card-tag">AI / Claude</div>
-      <h3 data-gr="AI Εργαλείο" data-en="AI Tool">AI Εργαλείο</h3>
-      <p data-gr="Claude-powered εφαρμογή για αυτοματισμό εργασιών." data-en="Claude-powered application for task automation.">Claude-powered εφαρμογή για αυτοματισμό εργασιών.</p>
-      <div class="card-footer"><div class="dot"></div><span style="color:var(--orange)">Live</span></div>
+    <div class="project-card fade-in fade-in-delay-1">
+      <div class="project-card-top">
+        <div class="card-tag">AI / Claude</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <h3 id="p2-title">AI Εργαλείο</h3>
+      <p id="p2-desc">Claude-powered εφαρμογή για αυτοματισμό εργασιών και έξυπνη επεξεργασία δεδομένων.</p>
+      <div class="card-footer"><div class="dot live"></div><span style="color:var(--orange)">Live</span></div>
     </div>
-    <div class="card">
-      <div class="card-tag">Web App</div>
+    <div class="project-card fade-in fade-in-delay-2">
+      <div class="project-card-top">
+        <div class="card-tag">Web App</div>
+        <div class="card-arrow">↗</div>
+      </div>
       <h3>Dashboard</h3>
-      <p data-gr="Custom web application με real-time data για πελάτη." data-en="Custom web application with real-time data for a client.">Custom web application με real-time data για πελάτη.</p>
-      <div class="card-footer"><div class="dot"></div><span style="color:var(--orange)">Live</span></div>
+      <p id="p3-desc">Custom web application με real-time data visualization και advanced filtering για πελάτη.</p>
+      <div class="card-footer"><div class="dot live"></div><span style="color:var(--orange)">Live</span></div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact">
-  <h2 data-gr="Ας συνεργαστούμε" data-en="Let's work together">Ας συνεργαστούμε</h2>
-  <p data-gr="Έχεις ένα project στο μυαλό σου; Ας το κάνουμε πραγματικότητα." data-en="Have a project in mind? Let's make it happen.">Έχεις ένα project στο μυαλό σου; Ας το κάνουμε πραγματικότητα.</p>
-  <a href="mailto:info@klikbox.gr"><button class="btn-primary" data-gr="Στείλε μήνυμα →" data-en="Send a message →">Στείλε μήνυμα →</button></a>
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-text fade-in">
+      <div class="section-label" id="about-label">— Σχετικά με μας</div>
+      <h2 id="about-title">Φτιάχνουμε digital προϊόντα που <span>λειτουργούν</span></h2>
+      <p id="about-p1">Η KlikBox είναι ένα creative digital studio που συνδυάζει modern web development με AI τεχνολογία για να δημιουργεί εξαιρετικές ψηφιακές εμπειρίες.</p>
+      <p id="about-p2">Από απλά επαγγελματικά websites μέχρι σύνθετες AI-powered εφαρμογές — κάθε project παραδίδεται με προσοχή στη λεπτομέρεια και στόχο τα αποτελέσματα.</p>
+      <div class="about-tags">
+        <span class="tag">WordPress</span>
+        <span class="tag">Astro</span>
+        <span class="tag">Claude AI</span>
+        <span class="tag">React</span>
+        <span class="tag">UI/UX</span>
+        <span class="tag">SEO</span>
+      </div>
+    </div>
+    <div class="about-visual fade-in fade-in-delay-1">
+      <div class="about-box">
+        <div class="about-box-num">12+</div>
+        <div class="about-box-label" id="ab1">Projects</div>
+      </div>
+      <div class="about-box">
+        <div class="about-box-num">3</div>
+        <div class="about-box-label" id="ab2">AI Apps</div>
+      </div>
+      <div class="about-box">
+        <div class="about-box-num">5+</div>
+        <div class="about-box-label" id="ab3">Χρόνια</div>
+      </div>
+      <div class="about-box">
+        <div class="about-box-num">∞</div>
+        <div class="about-box-label" id="ab4">Δημιουργικότητα</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-inner fade-in">
+    <div class="section-label" id="contact-label">— Επικοινωνία</div>
+    <h2 id="contact-title">Ας <span>συνεργαστούμε</span></h2>
+    <p id="contact-desc">Έχεις ένα project στο μυαλό σου; Είμαστε εδώ για να το κάνουμε πραγματικότητα. Στείλε μας μήνυμα και θα επικοινωνήσουμε μαζί σου σύντομα.</p>
+    <a href="mailto:klikboxofficial@gmail.com"><button class="btn-primary" id="contact-btn">Στείλε μήνυμα →</button></a>
+  </div>
 </section>
 
 <footer>
-  <p>© 2026 KlikBox</p>
+  <p>© 2026 KlikBox. <span id="footer-rights">Όλα τα δικαιώματα κατοχυρωμένα.</span></p>
   <span>klikbox.gr</span>
 </footer>
 
-<script>
+<script is:inline>
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const bg = document.getElementById('parallax-bg');
+    const grid = document.getElementById('parallax-grid');
+    if (bg) bg.style.transform = `translateY(${y * 0.4}px)`;
+    if (grid) grid.style.transform = `translateY(${y * 0.2}px)`;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const translations = {
+    gr: {
+      'hero-title': 'Δημιουργούμε<br><span>ψηφιακές εμπειρίες</span><br>που ξεχωρίζουν',
+      'hero-sub': 'Websites, web apps και AI-powered εφαρμογές για επιχειρήσεις που θέλουν να ξεχωρίσουν στο διαδίκτυο.',
+      'btn-projects': 'Δες τα Projects →',
+      'btn-contact': 'Επικοινωνία',
+      'stat1': 'Projects Ολοκληρωμένα',
+      'stat2': 'AI Εφαρμογές',
+      'stat3': 'Χρόνια Εμπειρίας',
+      'stat4': 'Ικανοποιημένοι Πελάτες',
+      'services-label': '— Τι Προσφέρουμε',
+      'services-title': 'Υπηρεσίες που <span>φέρνουν αποτελέσματα</span>',
+      's1-title': 'Web Development', 's1-desc': 'Κατασκευή επαγγελματικών websites με WordPress, custom HTML/CSS και modern frameworks.',
+      's2-title': 'AI Solutions', 's2-desc': 'Claude-powered εφαρμογές και εργαλεία που αυτοματοποιούν διαδικασίες και εξοικονομούν χρόνο.',
+      's3-title': 'Web Apps', 's3-desc': 'Custom web applications με real-time δυνατότητες, dashboards και σύγχρονα UI/UX.',
+      's4-title': 'UI/UX Design', 's4-desc': 'Σχεδιασμός interfaces που εντυπωσιάζουν και μετατρέπουν επισκέπτες σε πελάτες.',
+      'projects-label': '— Δουλειά μας',
+      'p1-desc': 'Vacation rental site για την Πάργα με multilingual support (GR/EN/SR), parallax effects και lightbox gallery.',
+      'p2-title': 'AI Εργαλείο', 'p2-desc': 'Claude-powered εφαρμογή για αυτοματισμό εργασιών και έξυπνη επεξεργασία δεδομένων.',
+      'p3-desc': 'Custom web application με real-time data visualization και advanced filtering για πελάτη.',
+      'about-label': '— Σχετικά με μας',
+      'about-title': 'Φτιάχνουμε digital προϊόντα που <span>λειτουργούν</span>',
+      'about-p1': 'Η KlikBox είναι ένα creative digital studio που συνδυάζει modern web development με AI τεχνολογία για να δημιουργεί εξαιρετικές ψηφιακές εμπειρίες.',
+      'about-p2': 'Από απλά επαγγελματικά websites μέχρι σύνθετες AI-powered εφαρμογές — κάθε project παραδίδεται με προσοχή στη λεπτομέρεια και στόχο τα αποτελέσματα.',
+      'ab3': 'Χρόνια', 'ab4': 'Δημιουργικότητα',
+      'contact-label': '— Επικοινωνία',
+      'contact-title': 'Ας <span>συνεργαστούμε</span>',
+      'contact-desc': 'Έχεις ένα project στο μυαλό σου; Είμαστε εδώ για να το κάνουμε πραγματικότητα. Στείλε μας μήνυμα και θα επικοινωνήσουμε μαζί σου σύντομα.',
+      'contact-btn': 'Στείλε μήνυμα →',
+      'footer-rights': 'Όλα τα δικαιώματα κατοχυρωμένα.',
+      'nav-services': 'Υπηρεσίες', 'nav-projects': 'Projects', 'nav-about': 'Σχετικά', 'nav-contact': 'Επικοινωνία'
+    },
+    en: {
+      'hero-title': 'Building<br><span>digital experiences</span><br>that stand out',
+      'hero-sub': 'Websites, web apps and AI-powered applications for businesses that want to stand out online.',
+      'btn-projects': 'View Projects →',
+      'btn-contact': 'Get in Touch',
+      'stat1': 'Completed Projects',
+      'stat2': 'AI Applications',
+      'stat3': 'Years Experience',
+      'stat4': 'Happy Clients',
+      'services-label': '— What We Offer',
+      'services-title': 'Services that <span>deliver results</span>',
+      's1-title': 'Web Development', 's1-desc': 'Professional websites built with WordPress, custom HTML/CSS and modern frameworks.',
+      's2-title': 'AI Solutions', 's2-desc': 'Claude-powered apps and tools that automate processes and save time.',
+      's3-title': 'Web Apps', 's3-desc': 'Custom web applications with real-time capabilities, dashboards and modern UI/UX.',
+      's4-title': 'UI/UX Design', 's4-desc': 'Interface design that impresses and converts visitors into clients.',
+      'projects-label': '— Our Work',
+      'p1-desc': 'Vacation rental site for Parga with multilingual support (GR/EN/SR), parallax effects and lightbox gallery.',
+      'p2-title': 'AI Tool', 'p2-desc': 'Claude-powered application for task automation and intelligent data processing.',
+      'p3-desc': 'Custom web application with real-time data visualization and advanced filtering for a client.',
+      'about-label': '— About Us',
+      'about-title': 'We build digital products that <span>work</span>',
+      'about-p1': 'KlikBox is a creative digital studio combining modern web development with AI technology to create exceptional digital experiences.',
+      'about-p2': 'From simple professional websites to complex AI-powered applications — every project is delivered with attention to detail and focus on results.',
+      'ab3': 'Years', 'ab4': 'Creativity',
+      'contact-label': '— Contact',
+      'contact-title': 'Let\'s <span>work together</span>',
+      'contact-desc': 'Have a project in mind? We\'re here to make it happen. Send us a message and we\'ll get back to you shortly.',
+      'contact-btn': 'Send a message →',
+      'footer-rights': 'All rights reserved.',
+      'nav-services': 'Services', 'nav-projects': 'Projects', 'nav-about': 'About', 'nav-contact': 'Contact'
+    }
+  };
+
   function setLang(lang) {
-    const isGr = lang === 'gr';
-    document.querySelectorAll('[data-gr]').forEach(el => {
-      const text = isGr ? el.dataset.gr : el.dataset.en;
-      if (el.tagName === 'H1') { el.innerHTML = text; }
-      else if (el.tagName === 'BUTTON') { el.textContent = text; }
-      else { el.textContent = text; }
+    const t = translations[lang];
+    Object.keys(t).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = t[id];
     });
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navKeys = ['nav-services', 'nav-projects', 'nav-about', 'nav-contact'];
+    navLinks.forEach((a, i) => { if (navKeys[i]) a.textContent = t[navKeys[i]]; });
     document.querySelectorAll('.lang-switch button').forEach((btn, i) => {
-      btn.classList.toggle('active', (i === 0 && isGr) || (i === 1 && !isGr));
+      btn.classList.toggle('active', (i === 0 && lang === 'gr') || (i === 1 && lang === 'en'));
     });
-    document.documentElement.lang = isGr ? 'el' : 'en';
+    document.documentElement.lang = lang === 'gr' ? 'el' : 'en';
   }
 </script>
 
