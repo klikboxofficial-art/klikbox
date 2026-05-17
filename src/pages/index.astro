@@ -60,14 +60,14 @@
 	@keyframes f3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
-    .stats-section { padding: 80px 48px; }
+    .stats-section { padding: 80px 48px; position: relative; z-index: 1; background: rgba(10,15,30,0.7); backdrop-filter: blur(10px); }
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
     .stat { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 28px 20px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
     .stat:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
     .stat-num { font-size: 36px; font-weight: 600; color: var(--orange); }
     .stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-    .services-section { padding: 80px 48px; background: var(--navy2); }
+    .services-section { padding: 80px 48px; background: rgba(13,21,41,0.92); backdrop-filter: blur(10px); position: relative; z-index: 1; }
     .section-header { text-align: center; margin-bottom: 48px; }
     .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 12px; }
     .section-title { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; }
@@ -378,7 +378,7 @@ for (let i = 0; i < count; i++) {
 const geo = new THREE.BufferGeometry();
 geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-const mat = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.8 });
+const mat = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.5 });
 const particles = new THREE.Points(geo, mat);
 scene.add(particles);
 const torusGeo = new THREE.TorusGeometry(8, 0.3, 16, 100);
