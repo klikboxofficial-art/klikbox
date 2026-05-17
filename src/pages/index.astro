@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KlikBox — Web Development & AI Solutions</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -142,6 +143,7 @@
 </head>
 <body>
 
+<canvas id="c" style="position:fixed;top:0;left:0;z-index:0;pointer-events:none;"></canvas>
 <nav>
   <a class="logo" href="/">
     <img src="/klikboxdark500nobg.png" alt="KlikBox" />
@@ -348,6 +350,79 @@
 </footer>
 
 <script is:inline>
+  const canvas3d = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+const scene = new THREE.Scene();
+const camera3d = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera3d.position.z = 30;
+const count = 6000;
+const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
+const orange = new THREE.Color('#f97316');
+const blue = new THREE.Color('#3b82f6');
+const white = new THREE.Color('#ffffff');
+for (let i = 0; i < count; i++) {
+  const i3 = i * 3;
+  const r = 20 + Math.random() * 10;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  positions[i3] = r * Math.sin(phi) * Math.cos(theta);
+  positions[i3+1] = r * Math.sin(phi) * Math.sin(theta);
+  positions[i3+2] = r * Math.cos(phi);
+  const mix = Math.random();
+  const c = mix < 0.3 ? orange : mix < 0.5 ? blue : white;
+  colors[i3] = c.r; colors[i3+1] = c.g; colors[i3+2] = c.b;
+}
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+const mat = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.8 });
+const particles = new THREE.Points(geo, mat);
+scene.add(particles);
+const torusGeo = new THREE.TorusGeometry(8, 0.3, 16, 100);
+const torusMat = new THREE.MeshBasicMaterial({ color: 0xf97316, transparent: true, opacity: 0.15 });
+const torus = new THREE.Mesh(torusGeo, torusMat);
+scene.add(torus);
+const torus2Geo = new THREE.TorusGeometry(12, 0.15, 16, 100);
+const torus2Mat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.08 });
+const torus2 = new THREE.Mesh(torus2Geo, torus2Mat);
+torus2.rotation.x = Math.PI / 3;
+scene.add(torus2);
+const icoGeo = new THREE.IcosahedronGeometry(3, 1);
+const icoMat = new THREE.MeshBasicMaterial({ color: 0xf97316, wireframe: true, transparent: true, opacity: 0.2 });
+const ico = new THREE.Mesh(icoGeo, icoMat);
+scene.add(ico);
+let mouseX3d = 0, mouseY3d = 0;
+document.addEventListener('mousemove', e => {
+  mouseX3d = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY3d = -(e.clientY / window.innerHeight - 0.5) * 2;
+});
+window.addEventListener('resize', () => {
+  camera3d.aspect = window.innerWidth / window.innerHeight;
+  camera3d.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+const clock = new THREE.Clock();
+function animate3d() {
+  requestAnimationFrame(animate3d);
+  const t = clock.getElapsedTime();
+  particles.rotation.y = t * 0.04 + mouseX3d * 0.3;
+  particles.rotation.x = t * 0.02 + mouseY3d * 0.2;
+  torus.rotation.x = t * 0.3;
+  torus.rotation.y = t * 0.2 + mouseX3d * 0.5;
+  torus2.rotation.z = t * 0.15;
+  torus2.rotation.y = t * 0.1 + mouseY3d * 0.3;
+  ico.rotation.x = t * 0.5;
+  ico.rotation.y = t * 0.3;
+  ico.scale.setScalar(1 + Math.sin(t * 2) * 0.05);
+  camera3d.position.x += (mouseX3d * 3 - camera3d.position.x) * 0.05;
+  camera3d.position.y += (mouseY3d * 2 - camera3d.position.y) * 0.05;
+  camera3d.lookAt(scene.position);
+  renderer.render(scene, camera3d);
+}
+animate3d();
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     const bg = document.getElementById('parallax-bg');
