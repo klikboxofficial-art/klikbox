@@ -1,0 +1,1326 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levante — Mediterranean Stays</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand: #f5efe6;
+  --sand-dark: #e8ddd0;
+  --ocean: #1a3d5c;
+  --ocean-mid: #2d6a8f;
+  --ocean-light: #5b9ab5;
+  --terracotta: #c4704a;
+  --terracotta-light: #d4856a;
+  --white: #fdfaf6;
+  --text: #2a2218;
+  --text-muted: #7a6e62;
+  --gold: #c9a96e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(253,250,246,0.96);
+  backdrop-filter: blur(12px);
+  padding: 16px 48px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+nav.scrolled .nav-logo { color: var(--ocean); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+nav.scrolled .nav-links a { color: var(--text-muted); }
+.nav-links a:hover { color: var(--terracotta) !important; }
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+}
+.lang-btn {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: all 0.2s;
+  font-family: 'Jost', sans-serif;
+}
+nav.scrolled .lang-btn { color: var(--text-muted); }
+.lang-btn.active, .lang-btn:hover { color: var(--gold) !important; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(10,25,40,0.3) 0%, rgba(10,25,40,0.1) 40%, rgba(10,25,40,0.6) 100%),
+    url('https://images.unsplash.com/photo-1586611292717-f828b167408c?w=1800&q=80') center/cover no-repeat;
+  transform: scale(1.05);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.12); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 48px 80px;
+  max-width: 900px;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 1s 0.2s both;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 28px;
+  animation: fadeUp 1s 0.4s both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-sub {
+  font-size: 15px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.05em;
+  max-width: 460px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  animation: fadeUp 1s 0.6s both;
+}
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  animation: fadeUp 1s 0.8s both;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 16px 36px;
+  background: var(--terracotta);
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-outline {
+  display: inline-block;
+  padding: 16px 36px;
+  background: transparent;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  right: 48px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp 1s 1.2s both;
+}
+.hero-scroll span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.7); }
+}
+
+/* ── BOOKING BAR ── */
+.booking-bar {
+  background: var(--ocean);
+  padding: 0 48px;
+}
+.booking-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.booking-field {
+  padding: 24px 32px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.booking-field:hover { background: rgba(255,255,255,0.05); }
+.booking-field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.booking-field input, .booking-field select {
+  background: none;
+  border: none;
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 200;
+  width: 100%;
+  outline: none;
+  cursor: pointer;
+}
+.booking-field select option { color: var(--text); background: white; }
+.booking-btn {
+  padding: 24px 40px;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+.booking-btn:hover { background: var(--terracotta-light); }
+
+/* ── SECTIONS ── */
+section { padding: 100px 48px; }
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--terracotta);
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ocean);
+  margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--terracotta); }
+
+/* ── ABOUT ── */
+.about {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 100px 48px;
+}
+.about-text p {
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+.stat {
+  padding: 24px;
+  border: 1px solid var(--sand-dark);
+  border-radius: 2px;
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--ocean);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.about-image {
+  position: relative;
+}
+.about-image img {
+  width: 100%;
+  height: 560px;
+  object-fit: cover;
+  display: block;
+}
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 60%;
+  height: 60%;
+  border: 1px solid var(--gold);
+  z-index: -1;
+}
+.about-image-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: var(--terracotta);
+  color: white;
+  padding: 20px 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 180px;
+}
+
+/* ── PROPERTIES ── */
+.properties-section {
+  background: var(--sand);
+  padding: 100px 48px;
+}
+.properties-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 1300px;
+  margin: 0 auto 60px;
+}
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.property-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--ocean);
+}
+.property-card:first-child {
+  grid-row: span 2;
+}
+.property-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease, filter 0.4s ease;
+  filter: brightness(0.85);
+}
+.property-card:first-child .property-img { height: 100%; min-height: 602px; }
+.property-card:hover .property-img {
+  transform: scale(1.05);
+  filter: brightness(0.7);
+}
+.property-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px;
+  background: linear-gradient(to top, rgba(10,25,40,0.9) 0%, transparent 100%);
+  transform: translateY(8px);
+  transition: transform 0.3s ease;
+}
+.property-card:hover .property-info { transform: translateY(0); }
+.property-type {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.property-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 8px;
+}
+.property-meta {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 200;
+}
+.property-price {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--terracotta);
+  color: white;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 300;
+}
+.property-price span { font-size: 10px; opacity: 0.8; }
+
+/* ── AMENITIES ── */
+.amenities {
+  background: var(--ocean);
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.amenities::before {
+  content: 'LEVANTE';
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 200px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.amenities-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.amenities .section-label { color: var(--gold); }
+.amenities .section-label::before { background: var(--gold); }
+.amenities .section-title { color: white; }
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+}
+.amenity-item {
+  padding: 40px 32px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.amenity-item:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-4px);
+}
+.amenity-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  display: block;
+}
+.amenity-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 8px;
+}
+.amenity-desc {
+  font-size: 13px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+}
+
+/* ── GALLERY ── */
+.gallery-section {
+  padding: 100px 0;
+  background: var(--white);
+}
+.gallery-header {
+  padding: 0 48px;
+  max-width: 1300px;
+  margin: 0 auto 48px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 3px;
+}
+.gallery-item {
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.gallery-item:first-child { grid-row: span 2; }
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,61,92,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span {
+  font-size: 28px;
+  color: white;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials {
+  background: var(--sand);
+  padding: 100px 48px;
+}
+.testimonials-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+.testimonial-card {
+  background: var(--white);
+  padding: 40px;
+  border-bottom: 3px solid var(--terracotta);
+  transition: transform 0.3s ease;
+}
+.testimonial-card:hover { transform: translateY(-6px); }
+.stars {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--ocean);
+  margin-bottom: 24px;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.author-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+}
+.author-country {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 200;
+}
+
+/* ── CONTACT ── */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+.contact-left {
+  background: var(--ocean);
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.contact-left .section-label { color: var(--gold); }
+.contact-left .section-label::before { background: var(--gold); }
+.contact-left .section-title { color: white; }
+.contact-left p {
+  font-size: 15px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.8;
+  margin: 24px 0 40px;
+}
+.contact-details { display: flex; flex-direction: column; gap: 20px; }
+.contact-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.contact-item-icon {
+  font-size: 18px;
+  margin-top: 2px;
+}
+.contact-item-text label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.contact-item-text span {
+  font-size: 15px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.8);
+}
+.contact-right {
+  background: var(--sand);
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-group { margin-bottom: 24px; }
+.form-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--sand-dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 200;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-bottom-color: var(--terracotta);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.form-group textarea { height: 80px; resize: none; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--text);
+  padding: 60px 48px 32px;
+}
+.footer-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 32px;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.footer-tagline {
+  font-size: 13px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.8;
+  max-width: 260px;
+}
+.footer-col h4 {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a {
+  font-size: 13px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-col ul li a:hover { color: white; }
+.footer-bottom {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom p {
+  font-size: 12px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.25);
+}
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,15,25,0.96);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute;
+  top: 32px;
+  right: 40px;
+  font-size: 32px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+  font-family: 'Jost', sans-serif;
+}
+.lightbox-close:hover { color: white; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  nav.scrolled { padding: 14px 24px; }
+  .nav-links { display: none; }
+  section { padding: 70px 24px; }
+  .about { grid-template-columns: 1fr; gap: 40px; padding: 70px 24px; }
+  .about-image::before { display: none; }
+  .properties-grid { grid-template-columns: 1fr; }
+  .property-card:first-child { grid-row: span 1; }
+  .property-card:first-child .property-img { min-height: 300px; }
+  .amenities-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item:first-child { grid-row: span 1; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-section { grid-template-columns: 1fr; }
+  .contact-left, .contact-right { padding: 60px 24px; }
+  .booking-inner { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .hero-content { padding: 0 24px 80px; }
+  .hero-scroll { right: 24px; }
+  .properties-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .properties-section { padding: 70px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">Levante</a>
+  <ul class="nav-links">
+    <li><a href="#properties">Properties</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active">EN</button>
+    <button class="lang-btn">GR</button>
+    <button class="lang-btn">SR</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Mediterranean Retreats</p>
+    <h1>Where the<br>sea meets<br><em>stillness</em></h1>
+    <p class="hero-sub">Handpicked villas and rooms along the Ionian coast. Waking up to the sound of the sea has never felt more like home.</p>
+    <div class="hero-cta">
+      <a href="#properties" class="btn-primary">Explore Properties</a>
+      <a href="#contact" class="btn-outline">Book a Stay</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="booking-inner">
+    <div class="booking-field">
+      <label>Destination</label>
+      <select>
+        <option>Parga, Greece</option>
+        <option>Lefkada, Greece</option>
+        <option>Sivota, Greece</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label>Check In</label>
+      <input type="text" placeholder="DD / MM / YYYY">
+    </div>
+    <div class="booking-field">
+      <label>Check Out</label>
+      <input type="text" placeholder="DD / MM / YYYY">
+    </div>
+    <button class="booking-btn">Search Availability</button>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about reveal">
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">A slower pace.<br>A <em>deeper</em> beauty.</h2>
+    <p>Levante was born from a love of the Mediterranean — its light, its rhythms, its unhurried generosity. We curate exceptional stays that feel like a privilege, not a transaction.</p>
+    <p>Each property is handpicked for its character, its setting, and the feeling it leaves with you long after you've gone home.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">48</div>
+        <div class="stat-label">Properties</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Destinations</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">Avg. Rating</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3K+</div>
+        <div class="stat-label">Happy Guests</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-image">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Mediterranean coast">
+    <div class="about-image-badge">Est. in Greece, born from the sea</div>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<section class="properties-section" id="properties">
+  <div class="properties-header reveal">
+    <div>
+      <p class="section-label">Where to Stay</p>
+      <h2 class="section-title">Our <em>finest</em><br>retreats</h2>
+    </div>
+    <a href="#" class="btn-primary" style="align-self:flex-end">View All Properties</a>
+  </div>
+  <div class="properties-grid">
+    <div class="property-card reveal">
+      <img class="property-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Villa Aegean">
+      <div class="property-price">€280 <span>/ night</span></div>
+      <div class="property-info">
+        <p class="property-type">Luxury Villa</p>
+        <h3 class="property-name">Villa Aegean</h3>
+        <div class="property-meta">
+          <span>🛏 4 Bedrooms</span>
+          <span>🚿 3 Baths</span>
+          <span>👤 8 Guests</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-card reveal">
+      <img class="property-img" src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80" alt="Sea View Suite">
+      <div class="property-price">€140 <span>/ night</span></div>
+      <div class="property-info">
+        <p class="property-type">Suite</p>
+        <h3 class="property-name">Sea View Suite</h3>
+        <div class="property-meta">
+          <span>🛏 1 Bedroom</span>
+          <span>👤 2 Guests</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-card reveal">
+      <img class="property-img" src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=600&q=80" alt="Olive Garden Studio">
+      <div class="property-price">€95 <span>/ night</span></div>
+      <div class="property-info">
+        <p class="property-type">Studio</p>
+        <h3 class="property-name">Olive Garden Studio</h3>
+        <div class="property-meta">
+          <span>🛏 Studio</span>
+          <span>👤 2 Guests</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-card reveal">
+      <img class="property-img" src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80" alt="Coastal Retreat">
+      <div class="property-price">€175 <span>/ night</span></div>
+      <div class="property-info">
+        <p class="property-type">House</p>
+        <h3 class="property-name">Coastal Retreat</h3>
+        <div class="property-meta">
+          <span>🛏 2 Bedrooms</span>
+          <span>👤 4 Guests</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-card reveal">
+      <img class="property-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Cliffside Penthouse">
+      <div class="property-price">€320 <span>/ night</span></div>
+      <div class="property-info">
+        <p class="property-type">Penthouse</p>
+        <h3 class="property-name">Cliffside Penthouse</h3>
+        <div class="property-meta">
+          <span>🛏 3 Bedrooms</span>
+          <span>👤 6 Guests</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <div class="amenities-inner">
+    <div class="reveal">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Every comfort.<br><em>Every detail.</em></h2>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🌊</span>
+        <h3 class="amenity-name">Private Beach Access</h3>
+        <p class="amenity-desc">Step directly from your terrace to crystal-clear waters.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🍋</span>
+        <h3 class="amenity-name">Local Breakfast</h3>
+        <p class="amenity-desc">Fresh Greek produce delivered to your door each morning.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🛥️</span>
+        <h3 class="amenity-name">Boat Excursions</h3>
+        <p class="amenity-desc">Private boat trips to hidden coves and sea caves.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🌿</span>
+        <h3 class="amenity-name">Wellness & Spa</h3>
+        <p class="amenity-desc">In-villa massage and yoga sessions on request.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">📶</span>
+        <h3 class="amenity-name">High-Speed WiFi</h3>
+        <p class="amenity-desc">Stay connected without sacrificing the escape.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🍷</span>
+        <h3 class="amenity-name">Wine Cellar</h3>
+        <p class="amenity-desc">Curated selection of local Greek wines at your fingertips.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🚗</span>
+        <h3 class="amenity-name">Airport Transfer</h3>
+        <p class="amenity-desc">Private chauffeur service from arrival to departure.</p>
+      </div>
+      <div class="amenity-item reveal">
+        <span class="amenity-icon">🔒</span>
+        <h3 class="amenity-name">24/7 Concierge</h3>
+        <p class="amenity-desc">Round-the-clock personal assistance for every need.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header reveal">
+    <p class="section-label">Visual Stories</p>
+    <h2 class="section-title">Life at <em>Levante</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1570737209810-87a8e7245f88?w=1200&q=80')">
+      <img src="https://images.unsplash.com/photo-1570737209810-87a8e7245f88?w=800&q=80" alt="Gallery 1">
+      <div class="gallery-overlay"><span>+</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=80')">
+      <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80" alt="Gallery 2">
+      <div class="gallery-overlay"><span>+</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80')">
+      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Gallery 3">
+      <div class="gallery-overlay"><span>+</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1439130490301-25e322d88054?w=1200&q=80')">
+      <img src="https://images.unsplash.com/photo-1439130490301-25e322d88054?w=600&q=80" alt="Gallery 4">
+      <div class="gallery-overlay"><span>+</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1615880484746-a134be9a6ecf?w=1200&q=80')">
+      <img src="https://images.unsplash.com/photo-1615880484746-a134be9a6ecf?w=600&q=80" alt="Gallery 5">
+      <div class="gallery-overlay"><span>+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="reveal">
+      <p class="section-label">Guest Stories</p>
+      <h2 class="section-title">Words from<br>our <em>guests</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The most beautiful week of our lives. Waking up to the Ionian Sea felt like a dream we never wanted to leave."</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://i.pravatar.cc/100?img=47" alt="Sofia">
+          <div>
+            <div class="author-name">Sofia Andersson</div>
+            <div class="author-country">Stockholm, Sweden</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Levante understood exactly what a perfect holiday means. The attention to detail is extraordinary — nothing was overlooked."</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://i.pravatar.cc/100?img=32" alt="Marco">
+          <div>
+            <div class="author-name">Marco Bellini</div>
+            <div class="author-country">Milan, Italy</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"We've stayed in many places across the Mediterranean, but Levante properties have a soul that's impossible to find elsewhere."</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://i.pravatar.cc/100?img=25" alt="Elena">
+          <div>
+            <div class="author-name">Elena Papadaki</div>
+            <div class="author-country">Athens, Greece</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left reveal">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Ready for your<br><em>escape?</em></h2>
+    <p>Our team is here to help you find the perfect stay and make every detail of your trip unforgettable.</p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <span class="contact-item-icon">📍</span>
+        <div class="contact-item-text">
+          <label>Location</label>
+          <span>Parga, Epirus, Greece</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">📧</span>
+        <div class="contact-item-text">
+          <label>Email</label>
+          <span>hello@levantestays.com</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-icon">📞</span>
+        <div class="contact-item-text">
+          <label>Phone</label>
+          <span>+30 26840 00000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right reveal">
+    <p class="section-label">Enquiry Form</p>
+    <h3 class="section-title" style="font-size:32px;margin-bottom:32px">Send a <em>message</em></h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Last name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="your@email.com">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Check In</label>
+        <input type="text" placeholder="DD / MM / YYYY">
+      </div>
+      <div class="form-group">
+        <label>Check Out</label>
+        <input type="text" placeholder="DD / MM / YYYY">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea placeholder="Tell us about your ideal stay..."></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%;margin-top:8px;padding:18px">Send Enquiry</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Levante</div>
+      <p class="footer-tagline">Curated Mediterranean stays for those who believe travel should feel like living, not visiting.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <ul>
+        <li><a href="#">Villas</a></li>
+        <li><a href="#">Suites</a></li>
+        <li><a href="#">Studios</a></li>
+        <li><a href="#">Coastal Houses</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Destinations</h4>
+      <ul>
+        <li><a href="#">Parga</a></li>
+        <li><a href="#">Lefkada</a></li>
+        <li><a href="#">Sivota</a></li>
+        <li><a href="#">Corfu</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">About Levante</a></li>
+        <li><a href="#">Book a Stay</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Levante. WordPress Theme by <a href="https://klikbox.gr">Klikbox</a>.</p>
+    <p style="color:rgba(255,255,255,0.2);font-size:11px;letter-spacing:0.1em">PARGA · LEFKADA · SIVOTA</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Lightbox
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+
+// Lang switcher
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
