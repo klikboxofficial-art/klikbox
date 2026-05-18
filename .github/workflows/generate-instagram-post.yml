@@ -1,0 +1,35 @@
+name: Generate Instagram Post
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Δευτέρα 10:00 Athens
+    - cron: '0 8 * * 3'  # Τετάρτη
+    - cron: '0 8 * * 5'  # Παρασκευή
+  workflow_dispatch:      # Manual trigger για test
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Generate post image
+        run: python scripts/generate-post.py
+
+      - name: Commit and push image
+        run: |
+          git config user.name "KlikBox Bot"
+          git config user.email "bot@klikbox.gr"
+          git add public/instagram_post.jpg
+          git diff --staged --quiet || git commit -m "Auto: Instagram post $(date +'%Y-%m-%d')"
+          git push
