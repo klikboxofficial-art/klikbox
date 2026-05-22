@@ -1,0 +1,439 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière — Beauty & Cosmetics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Tenor+Sans&family=Lato:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --nude: #e8ddd0;
+  --nude-dark: #d4c4b0;
+  --gold: #c9a96e;
+  --gold-light: #e0c48a;
+  --gold-dark: #a07840;
+  --brown: #5c3d2e;
+  --text: #2a1f14;
+  --text-muted: #8a7060;
+  --white: #fff;
+  --black: #1a1208;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(250,247,242,0.97);
+  backdrop-filter: blur(12px);
+  padding: 14px 60px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+nav.scrolled .nav-logo { color: var(--text); }
+.nav-menu { display: flex; gap: 40px; list-style: none; }
+.nav-menu a {
+  font-size: 11px; font-weight: 300; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.85);
+  text-decoration: none; transition: color 0.3s;
+}
+nav.scrolled .nav-menu a { color: var(--text-muted); }
+.nav-menu a:hover { color: var(--gold) !important; }
+.nav-actions { display: flex; align-items: center; gap: 20px; }
+.nav-icon { font-size: 18px; color: rgba(255,255,255,0.85); cursor: pointer; transition: color 0.3s; position: relative; }
+nav.scrolled .nav-icon { color: var(--text-muted); }
+.nav-icon:hover { color: var(--gold) !important; }
+.cart-count { position: absolute; top: -6px; right: -6px; background: var(--gold); color: white; font-size: 9px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+.hero { position: relative; height: 100vh; min-height: 700px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+.hero-left { background: var(--black); display: flex; align-items: flex-end; padding: 0 80px 80px; position: relative; overflow: hidden; }
+.hero-left::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=900&q=80') center/cover; opacity: 0.5; animation: heroZoom 18s ease-in-out infinite alternate; }
+@keyframes heroZoom { from { transform: scale(1.02); } to { transform: scale(1.08); } }
+.hero-left-content { position: relative; z-index: 2; }
+.hero-eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; animation: fadeUp 1s 0.3s both; }
+.hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(48px, 5vw, 72px); font-weight: 400; line-height: 1.05; color: var(--white); margin-bottom: 24px; animation: fadeUp 1s 0.5s both; }
+.hero h1 em { font-style: italic; color: var(--gold-light); }
+.hero-sub { font-size: 14px; font-weight: 200; color: rgba(255,255,255,0.6); line-height: 1.9; max-width: 360px; margin-bottom: 40px; animation: fadeUp 1s 0.7s both; }
+.hero-cta { display: flex; gap: 16px; animation: fadeUp 1s 0.9s both; flex-wrap: wrap; }
+.btn-gold { display: inline-block; padding: 15px 36px; background: var(--gold); color: white; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; text-decoration: none; font-family: 'Lato', sans-serif; transition: all 0.3s; border: none; cursor: pointer; }
+.btn-gold:hover { background: var(--gold-dark); }
+.btn-outline-white { display: inline-block; padding: 15px 36px; background: transparent; color: white; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; text-decoration: none; font-family: 'Lato', sans-serif; border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s; }
+.btn-outline-white:hover { border-color: var(--gold); color: var(--gold); }
+.hero-right { background: var(--nude); position: relative; overflow: hidden; }
+.hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+.hero-right-badge { position: absolute; top: 48px; left: -20px; background: var(--gold); color: white; padding: 16px 24px 16px 40px; font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; }
+
+.marquee-wrap { background: var(--gold); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+.marquee-track { display: inline-flex; animation: marquee 20s linear infinite; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: white; font-weight: 300; padding: 0 40px; display: inline-flex; align-items: center; gap: 16px; }
+.marquee-item::after { content: '✦'; font-size: 8px; opacity: 0.6; }
+
+section { padding: 100px 60px; }
+.section-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 400; }
+.section-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; max-width: 1400px; margin-left: auto; margin-right: auto; }
+h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 400; line-height: 1.15; color: var(--text); }
+h2 em { font-style: italic; color: var(--gold-dark); }
+.view-all { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--nude-dark); padding-bottom: 2px; transition: all 0.3s; font-weight: 300; }
+.view-all:hover { color: var(--gold); border-color: var(--gold); }
+
+.categories-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 320px 320px; gap: 3px; max-width: 1400px; margin: 0 auto; }
+.cat-card { position: relative; overflow: hidden; cursor: pointer; }
+.cat-card:first-child { grid-row: span 2; }
+.cat-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; filter: brightness(0.85); }
+.cat-card:hover img { transform: scale(1.06); filter: brightness(0.75); }
+.cat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,18,8,0.7) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 28px; }
+.cat-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: white; margin-bottom: 4px; }
+.cat-count { font-size: 11px; letter-spacing: 0.15em; color: rgba(255,255,255,0.55); text-transform: uppercase; }
+
+.products-section { background: var(--white); }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; max-width: 1400px; margin: 56px auto 0; }
+.product-card { background: var(--cream); cursor: pointer; position: relative; overflow: hidden; }
+.product-img-wrap { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+.product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.product-card:hover .product-img-wrap img { transform: scale(1.05); }
+.product-badge { position: absolute; top: 16px; left: 16px; background: var(--gold); color: white; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 10px; }
+.product-badge.new { background: var(--brown); }
+.product-actions { position: absolute; bottom: -60px; left: 0; right: 0; padding: 0 20px 20px; transition: bottom 0.3s ease; display: flex; gap: 8px; }
+.product-card:hover .product-actions { bottom: 0; }
+.btn-add-cart { flex: 1; padding: 12px; background: var(--text); color: white; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Lato', sans-serif; font-weight: 300; transition: background 0.3s; }
+.btn-add-cart:hover { background: var(--gold); }
+.btn-wishlist { width: 44px; background: white; border: none; cursor: pointer; font-size: 16px; transition: background 0.3s; display: flex; align-items: center; justify-content: center; }
+.product-info { padding: 20px; }
+.product-brand { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.product-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400; color: var(--text); margin-bottom: 8px; line-height: 1.3; }
+.product-price { font-size: 15px; font-weight: 300; color: var(--gold-dark); }
+.product-price .original { text-decoration: line-through; color: var(--text-muted); font-size: 13px; margin-right: 8px; }
+.product-stars { font-size: 11px; color: var(--gold); letter-spacing: 2px; margin-bottom: 4px; }
+
+.banner { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; }
+.banner-left { background: var(--black); position: relative; overflow: hidden; }
+.banner-left img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+.banner-right { background: var(--nude); display: flex; flex-direction: column; justify-content: center; padding: 80px; }
+.btn-dark { display: inline-block; padding: 15px 36px; background: var(--text); color: white; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; text-decoration: none; font-family: 'Lato', sans-serif; transition: background 0.3s; border: none; cursor: pointer; }
+.btn-dark:hover { background: var(--gold); }
+
+.bestsellers-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; max-width: 1400px; margin: 56px auto 0; background: var(--nude-dark); }
+.bestseller-item { background: var(--cream); display: grid; grid-template-columns: 100px 1fr; cursor: pointer; transition: background 0.3s; }
+.bestseller-item:hover { background: var(--white); }
+.bestseller-img { width: 100px; height: 120px; object-fit: cover; }
+.bestseller-info { padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+.bestseller-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--nude-dark); line-height: 1; margin-bottom: 8px; }
+.bestseller-name { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); margin-bottom: 4px; }
+.bestseller-brand { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.bestseller-price { font-size: 14px; color: var(--gold-dark); font-weight: 300; }
+
+.testimonials-section { background: var(--black); position: relative; overflow: hidden; }
+.testimonials-section::before { content: '"'; position: absolute; font-family: 'Playfair Display', serif; font-size: 400px; color: rgba(201,169,110,0.06); top: -40px; left: 40px; line-height: 1; pointer-events: none; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; max-width: 1400px; margin: 56px auto 0; background: rgba(255,255,255,0.06); }
+.testimonial-card { background: var(--black); padding: 48px 40px; transition: background 0.3s; }
+.testimonial-card:hover { background: rgba(255,255,255,0.03); }
+.t-stars { color: var(--gold); font-size: 13px; letter-spacing: 3px; margin-bottom: 24px; }
+.t-text { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 28px; }
+.t-author { display: flex; align-items: center; gap: 14px; }
+.t-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(201,169,110,0.3); }
+.t-name { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); }
+.t-handle { font-size: 11px; color: var(--gold); letter-spacing: 0.1em; }
+
+.newsletter { background: var(--nude); text-align: center; }
+.newsletter-form { display: flex; max-width: 480px; margin: 32px auto 0; }
+.newsletter-form input { flex: 1; padding: 16px 24px; background: white; border: 1px solid var(--nude-dark); border-right: none; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 200; color: var(--text); outline: none; }
+.newsletter-form button { padding: 16px 32px; background: var(--gold); color: white; border: none; font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+.newsletter-form button:hover { background: var(--gold-dark); }
+
+footer { background: var(--text); padding: 72px 60px 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; max-width: 1400px; margin: 0 auto; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 32px; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: white; margin-bottom: 16px; }
+.footer-tagline { font-size: 13px; font-weight: 200; color: rgba(255,255,255,0.35); line-height: 1.9; max-width: 240px; margin-bottom: 28px; }
+.footer-col h4 { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-family: 'Lato', sans-serif; font-weight: 400; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 13px; font-weight: 200; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: white; }
+.footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 12px; font-weight: 200; color: rgba(255,255,255,0.2); }
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+  nav { padding: 20px 32px; }
+  nav.scrolled { padding: 14px 32px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { min-height: 100vh; }
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+  .cat-card:first-child { grid-row: span 1; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .banner { grid-template-columns: 1fr; }
+  .banner-left { height: 300px; }
+  .bestsellers-list { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  section { padding: 70px 32px; }
+  footer { padding: 60px 32px 32px; }
+}
+@media (max-width: 768px) {
+  .nav-menu { display: none; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .banner-right { padding: 48px 32px; }
+  .hero-left { padding: 0 32px 64px; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">Lumière</a>
+  <ul class="nav-menu">
+    <li><a href="#categories">Collections</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#bestsellers">Bestsellers</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <span class="nav-icon">🔍</span>
+    <span class="nav-icon" style="position:relative">🛒<span class="cart-count">2</span></span>
+    <span class="nav-icon">👤</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-content">
+      <p class="hero-eyebrow">New Collection 2026</p>
+      <h1>Beauty is<br>your <em>finest</em><br>accessory</h1>
+      <p class="hero-sub">Discover our curated edit of luxury skincare, makeup, and fragrance — crafted for those who treat beauty as ritual.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn-gold">Shop Now</a>
+        <a href="#categories" class="btn-outline-white">Explore</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80" alt="Beauty">
+    <div class="hero-right-badge">Luxury Skincare & Beauty</div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Free Shipping Over €60</span>
+    <span class="marquee-item">New Arrivals Every Week</span>
+    <span class="marquee-item">Cruelty Free & Vegan</span>
+    <span class="marquee-item">Luxury Beauty Brands</span>
+    <span class="marquee-item">Express Delivery Available</span>
+    <span class="marquee-item">Free Returns Within 30 Days</span>
+    <span class="marquee-item">Free Shipping Over €60</span>
+    <span class="marquee-item">New Arrivals Every Week</span>
+    <span class="marquee-item">Cruelty Free & Vegan</span>
+    <span class="marquee-item">Luxury Beauty Brands</span>
+    <span class="marquee-item">Express Delivery Available</span>
+    <span class="marquee-item">Free Returns Within 30 Days</span>
+  </div>
+</div>
+
+<section id="categories" class="reveal">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Shop by Category</p>
+      <h2>Discover your<br><em>perfect ritual</em></h2>
+    </div>
+    <a href="#" class="view-all">View All Categories</a>
+  </div>
+  <div class="categories-grid">
+    <div class="cat-card reveal">
+      <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80" alt="Skincare">
+      <div class="cat-overlay"><div><div class="cat-name">Skincare</div><div class="cat-count">48 Products</div></div></div>
+    </div>
+    <div class="cat-card reveal">
+      <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=80" alt="Makeup">
+      <div class="cat-overlay"><div><div class="cat-name">Makeup</div><div class="cat-count">62 Products</div></div></div>
+    </div>
+    <div class="cat-card reveal">
+      <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=80" alt="Fragrance">
+      <div class="cat-overlay"><div><div class="cat-name">Fragrance</div><div class="cat-count">24 Products</div></div></div>
+    </div>
+    <div class="cat-card reveal">
+      <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=600&q=80" alt="Body Care">
+      <div class="cat-overlay"><div><div class="cat-name">Body Care</div><div class="cat-count">36 Products</div></div></div>
+    </div>
+    <div class="cat-card reveal">
+      <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80" alt="Hair Care">
+      <div class="cat-overlay"><div><div class="cat-name">Hair Care</div><div class="cat-count">29 Products</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="products-section" id="products">
+  <div style="max-width:1400px;margin:0 auto" class="reveal">
+    <p class="section-eyebrow">New Arrivals</p>
+    <h2>This season's<br><em>must-haves</em></h2>
+  </div>
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1570194065650-d99fb4b38b3f?w=600&q=80" alt="Moisturizing Cream">
+        <span class="product-badge new">New</span>
+        <div class="product-actions"><button class="btn-add-cart">Add to Cart</button><button class="btn-wishlist">♡</button></div>
+      </div>
+      <div class="product-info">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-brand">La Mer</div>
+        <div class="product-name">Moisturizing Cream</div>
+        <div class="product-price">€185</div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556228720-da0e6ada9c1e?w=600&q=80" alt="Flawless Filter">
+        <span class="product-badge">Sale</span>
+        <div class="product-actions"><button class="btn-add-cart">Add to Cart</button><button class="btn-wishlist">♡</button></div>
+      </div>
+      <div class="product-info">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-brand">Charlotte Tilbury</div>
+        <div class="product-name">Flawless Filter</div>
+        <div class="product-price"><span class="original">€52</span>€44</div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1625093030780-1e8f7b38f3b2?w=600&q=80" alt="Lip Glow Oil">
+        <span class="product-badge new">New</span>
+        <div class="product-actions"><button class="btn-add-cart">Add to Cart</button><button class="btn-wishlist">♡</button></div>
+      </div>
+      <div class="product-info">
+        <div class="product-stars">★★★★☆</div>
+        <div class="product-brand">Dior Beauty</div>
+        <div class="product-name">Lip Glow Oil</div>
+        <div class="product-price">€38</div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" alt="Black Rose Serum">
+        <span class="product-badge">Bestseller</span>
+        <div class="product-actions"><button class="btn-add-cart">Add to Cart</button><button class="btn-wishlist">♡</button></div>
+      </div>
+      <div class="product-info">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-brand">Sisley Paris</div>
+        <div class="product-name">Black Rose Serum</div>
+        <div class="product-price">€220</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:48px">
+    <a href="#" class="btn-dark">View All Products</a>
+  </div>
+</section>
+
+<div class="banner" id="about">
+  <div class="banner-left">
+    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80" alt="About">
+  </div>
+  <div class="banner-right reveal">
+    <p class="section-eyebrow">Our Philosophy</p>
+    <h2>Beauty rooted<br>in <em>science</em> &<br>nature</h2>
+    <p style="margin-top:20px;margin-bottom:36px;font-size:15px;font-weight:200;color:var(--text-muted);line-height:1.9">Every product we carry is selected for its efficacy, ingredient integrity, and transformative potential.</p>
+    <a href="#" class="btn-dark">Discover Our Story</a>
+  </div>
+</div>
+
+<section id="bestsellers">
+  <div style="max-width:1400px;margin:0 auto" class="reveal">
+    <p class="section-eyebrow">Top Sellers</p>
+    <h2>Customer <em>favourites</em></h2>
+  </div>
+  <div class="bestsellers-list">
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">01</div><div class="bestseller-brand">The Ordinary</div><div class="bestseller-name">Vitamin C Brightening Serum</div><div class="bestseller-price">€12.90</div></div></div>
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1556228841-a3c527ebefe5?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">02</div><div class="bestseller-brand">Fresh</div><div class="bestseller-name">Hydrating Rose Toner</div><div class="bestseller-price">€48.00</div></div></div>
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">03</div><div class="bestseller-brand">RoC</div><div class="bestseller-name">Retinol Eye Cream</div><div class="bestseller-price">€32.00</div></div></div>
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">04</div><div class="bestseller-brand">Hourglass</div><div class="bestseller-name">Perfecting Primer</div><div class="bestseller-price">€64.00</div></div></div>
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">05</div><div class="bestseller-brand">Altruist</div><div class="bestseller-name">SPF 50 Daily Sunscreen</div><div class="bestseller-price">€8.90</div></div></div>
+    <div class="bestseller-item reveal"><img class="bestseller-img" src="https://images.unsplash.com/photo-1503236823255-94609f598e71?w=200&q=80" alt=""><div class="bestseller-info"><div class="bestseller-num">06</div><div class="bestseller-brand">The Ordinary</div><div class="bestseller-name">Niacinamide 10% + Zinc</div><div class="bestseller-price">€5.90</div></div></div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div style="max-width:1400px;margin:0 auto" class="reveal">
+    <p class="section-eyebrow" style="color:var(--gold)">Reviews</p>
+    <h2 style="color:white">What our <em>clients</em> say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">"The La Mer cream transformed my skin in just two weeks. I've never felt more confident going makeup-free."</p><div class="t-author"><img class="t-avatar" src="https://i.pravatar.cc/100?img=47" alt=""><div><div class="t-name">Sophia Laurent</div><div class="t-handle">Verified Buyer</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">"Packaging is gorgeous, delivery was lightning fast, and the products are exactly as described. My go-to beauty store."</p><div class="t-author"><img class="t-avatar" src="https://i.pravatar.cc/100?img=32" alt=""><div><div class="t-name">Isabella Rossi</div><div class="t-handle">Verified Buyer</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">"Finally a beauty shop that understands luxury. The curation is impeccable and the customer service is exceptional."</p><div class="t-author"><img class="t-avatar" src="https://i.pravatar.cc/100?img=25" alt=""><div><div class="t-name">Marie Dubois</div><div class="t-handle">Verified Buyer</div></div></div></div>
+  </div>
+</section>
+
+<section class="newsletter reveal">
+  <p class="section-eyebrow" style="justify-content:center;margin-bottom:16px">Stay in the Loop</p>
+  <h2>Join the <em>Lumière</em> family</h2>
+  <p style="font-size:14px;font-weight:200;color:var(--text-muted);margin-top:12px">Subscribe for exclusive offers, beauty tips, and early access to new arrivals.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Your email address">
+    <button>Subscribe</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Lumière</div>
+      <p class="footer-tagline">Luxury beauty, curated with care. Where science meets elegance.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="#">Skincare</a></li><li><a href="#">Makeup</a></li><li><a href="#">Fragrance</a></li><li><a href="#">Body Care</a></li><li><a href="#">Hair Care</a></li></ul></div>
+    <div class="footer-col"><h4>Help</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Returns</a></li><li><a href="#">Track Order</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Blog</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Lumière. WordPress Theme by <a href="https://klikbox.gr">Klikbox</a>.</p>
+    <p style="color:rgba(255,255,255,0.15);font-size:11px;letter-spacing:0.1em">BEAUTY · SKINCARE · FRAGRANCE</p>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => { if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
