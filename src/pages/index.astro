@@ -21,7 +21,58 @@
       --card-border: rgba(255,255,255,0.08);
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    body {
+      background:
+        radial-gradient(circle at 52% 36%, rgba(37,99,235,0.12), transparent 32%),
+        radial-gradient(circle at 76% 68%, rgba(249,115,22,0.1), transparent 30%),
+        var(--navy);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: fixed;
+    }
+
+    body::before {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.56) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(59,130,246,0.66) 0 1.2px, transparent 1.8px),
+        radial-gradient(circle, rgba(249,115,22,0.56) 0 1px, transparent 1.7px);
+      background-position: 0 0, 21px 30px, 47px 63px;
+      background-size: 42px 42px, 82px 82px, 126px 126px;
+      opacity: 0.38;
+      z-index: 0;
+    }
+
+    body::after {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.52) 0 4px, transparent 4.6px),
+        radial-gradient(circle, rgba(249,115,22,0.46) 0 5px, transparent 5.8px),
+        radial-gradient(circle, rgba(37,99,235,0.5) 0 6px, transparent 6.8px);
+      background-position: 34px 48px, 93px 116px, 146px 202px;
+      background-size: 154px 154px, 238px 238px, 318px 318px;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    #c { opacity: 0.95; z-index: 1 !important; }
+    nav,
+    .hero-wrap,
+    .stats-section,
+    .services-section,
+    .projects-section,
+    .about-section,
+    .contact-section,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
 
     nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 0.5px solid var(--card-border); position: fixed; top: 0; width: 100%; background: rgba(10,15,30,0.85); backdrop-filter: blur(12px); z-index: 100; }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -34,10 +85,10 @@
 	.lang-switch button.active { border-color: var(--orange); opacity: 1; }
 	.lang-switch button img { display: block; width: 24px; height: 18px; }
 
-    .hero-wrap { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-wrap { height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(249,115,22,0.08) 0%, transparent 70%), radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 60%); will-change: transform; }
     .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; will-change: transform; }
-    .hero-content { position: relative; text-align: center; padding: 0 24px; }
+    .hero-content { position: relative; text-align: center; padding: 0 24px; z-index: 3; }
     .badge { display: inline-block; background: var(--orange-dim); color: var(--orange); font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid rgba(249,115,22,0.3); margin-bottom: 24px; }
     .hero h1 { font-size: 64px; font-weight: 600; line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px; }
     .hero h1 span { color: var(--orange); }
@@ -47,16 +98,16 @@
     .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-ghost { background: transparent; color: var(--muted); border: 0.5px solid var(--card-border); padding: 13px 30px; border-radius: 8px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
     .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
-    .scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--muted); font-size: 20px; animation: bounce 2s infinite; }
+    .scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--muted); font-size: 20px; animation: bounce 2s infinite; z-index: 3; }
 
-    .stats-section { padding: 80px 48px; position: relative; z-index: 1; background: rgba(10,15,30,0.7); backdrop-filter: blur(10px); }
+    .stats-section { padding: 80px 48px; background: rgba(10,15,30,0.2); backdrop-filter: blur(2px); }
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
     .stat { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 12px; padding: 28px 20px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
     .stat:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
     .stat-num { font-size: 36px; font-weight: 600; color: var(--orange); }
     .stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-    .services-section { padding: 80px 48px; background: rgba(13,21,41,0.92); backdrop-filter: blur(10px); position: relative; z-index: 1; }
+    .services-section { padding: 80px 48px; background: rgba(13,21,41,0.38); backdrop-filter: blur(2px); }
     .section-header { text-align: center; margin-bottom: 48px; }
     .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 12px; }
     .section-title { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; }
@@ -70,7 +121,7 @@
     .service-card h3 { font-size: 18px; font-weight: 500; margin-bottom: 10px; }
     .service-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-    .projects-section { padding: 80px 48px; }
+    .projects-section { padding: 80px 48px; background: rgba(10,15,30,0.12); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
     .project-card { background: var(--card); border: 0.5px solid var(--card-border); border-radius: 16px; padding: 28px; transition: all 0.3s; cursor: pointer; }
     .project-card:hover { border-color: rgba(249,115,22,0.4); transform: translateY(-6px); }
@@ -85,7 +136,7 @@
     .dot.live { animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    .about-section { padding: 80px 48px; background: var(--navy2); }
+    .about-section { padding: 80px 48px; background: rgba(13,21,41,0.32); backdrop-filter: blur(2px); }
     .about-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .about-text .section-label { text-align: left; }
     .about-text h2 { font-size: 36px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; line-height: 1.2; }
@@ -99,7 +150,7 @@
     .about-box-num { font-size: 28px; font-weight: 600; color: var(--orange); }
     .about-box-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
-    .contact-section { padding: 80px 48px; }
+    .contact-section { padding: 80px 48px; background: rgba(10,15,30,0.1); }
     .contact-inner { max-width: 700px; margin: 0 auto; background: var(--card); border: 0.5px solid var(--card-border); border-radius: 24px; padding: 60px; text-align: center; position: relative; overflow: hidden; }
     .contact-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%); pointer-events: none; }
     .contact-inner .section-label { margin-bottom: 16px; }
@@ -339,20 +390,20 @@ for (let i = 0; i < count; i++) {
 const geo = new THREE.BufferGeometry();
 geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-const mat = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.5 });
+const mat = new THREE.PointsMaterial({ size: 0.2, vertexColors: true, transparent: true, opacity: 0.72 });
 const particles = new THREE.Points(geo, mat);
 scene.add(particles);
 const torusGeo = new THREE.TorusGeometry(8, 0.3, 16, 100);
-const torusMat = new THREE.MeshBasicMaterial({ color: 0xf97316, transparent: true, opacity: 0.15 });
+const torusMat = new THREE.MeshBasicMaterial({ color: 0xf97316, transparent: true, opacity: 0.22 });
 const torus = new THREE.Mesh(torusGeo, torusMat);
 scene.add(torus);
 const torus2Geo = new THREE.TorusGeometry(12, 0.15, 16, 100);
-const torus2Mat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.08 });
+const torus2Mat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.14 });
 const torus2 = new THREE.Mesh(torus2Geo, torus2Mat);
 torus2.rotation.x = Math.PI / 3;
 scene.add(torus2);
 const icoGeo = new THREE.IcosahedronGeometry(3, 1);
-const icoMat = new THREE.MeshBasicMaterial({ color: 0xf97316, wireframe: true, transparent: true, opacity: 0.2 });
+const icoMat = new THREE.MeshBasicMaterial({ color: 0xf97316, wireframe: true, transparent: true, opacity: 0.28 });
 const ico = new THREE.Mesh(icoGeo, icoMat);
 scene.add(ico);
 let mouseX3d = 0, mouseY3d = 0;
